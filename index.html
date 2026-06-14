@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Paul Watkins | CV</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: { 
+                extend: { 
+                    colors: { 
+                        indigo: { 
+                            400: '#818cf8', 
+                            600: '#4f46e5' 
+                        } 
+                    } 
+                } 
+            }
+        }
+    </script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+        html { scroll-behavior: smooth; }
+        body { font-family: 'Inter', sans-serif; transition: background-color 0.3s ease, color 0.3s ease; }
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background-color: #d4d4d8; border-radius: 10px; }
+        .dark ::-webkit-scrollbar-thumb { background-color: #3f3f46; }
+    </style>
+    <script>
+        (function() {
+            const theme = localStorage.getItem('theme');
+            if (theme === 'dark' || (!theme && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+                document.documentElement.classList.add('dark');
+            } else {
+                document.documentElement.classList.remove('dark');
+            }
+        })();
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const toggleBtn = document.getElementById('theme-toggle');
+            const lightIcon = document.getElementById('theme-toggle-light-icon');
+            const darkIcon = document.getElementById('theme-toggle-dark-icon');
+
+            if (document.documentElement.classList.contains('dark')) {
+                darkIcon.classList.remove('hidden');
+            } else {
+                lightIcon.classList.remove('hidden');
+            }
+
+            toggleBtn.addEventListener('click', () => {
+                document.documentElement.classList.toggle('dark');
+                if (document.documentElement.classList.contains('dark')) {
+                    localStorage.setItem('theme', 'dark');
+                    darkIcon.classList.remove('hidden');
+                    lightIcon.classList.add('hidden');
+                } else {
+                    localStorage.setItem('theme', 'light');
+                    lightIcon.classList.remove('hidden');
+                    darkIcon.classList.add('hidden');
+                }
+            });
+
+            const sections = document.querySelectorAll('section[id]');
+            const navLinks = document.querySelectorAll('.nav-link');
+
+            const observerOptions = {
+                root: null,
+                rootMargin: '0px 0px -60% 0px',
+                threshold: 0.1
+            };
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const id = entry.target.getAttribute('id');
+                        
+                        navLinks.forEach(link => {
+                            link.classList.remove('text-indigo-600', 'dark:text-indigo-400', 'font-bold');
+                            link.classList.add('text-zinc-500', 'dark:text-zinc-400');
+                            if (link.getAttribute('href') === `#${id}`) {
+                                link.classList.add('text-indigo-600', 'dark:text-indigo-400', 'font-bold');
+                                link.classList.remove('text-zinc-500', 'dark:text-zinc-400');
+                            }
+                        });
+                    }
+                });
+            }, observerOptions);
+
+            sections.forEach(section => {
+                observer.observe(section);
+            });
+        });
+    </script>
+</head>
+<body class="bg-zinc-50 text-zinc-900 dark:bg-zinc-950 dark:text-zinc-100 antialiased selection:bg-indigo-600 selection:text-white">
+
+    <div class="max-w-6xl mx-auto px-4 md:px-8 relative z-10">
+        <div class="grid grid-cols-1 md:grid-cols-12 gap-12 pt-12 md:pt-24 pb-24">
+            
+            <aside class="md:col-span-4 flex flex-col md:sticky md:top-24 h-max">
+                <button id="theme-toggle" class="absolute -top-6 right-0 p-2 rounded-full bg-zinc-200 dark:bg-zinc-800 text-zinc-500 dark:text-zinc-400 hover:bg-zinc-300 dark:hover:bg-zinc-700 transition-colors focus:outline-none">
+                    <svg id="theme-toggle-dark-icon" class="hidden w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"></path></svg>
+                    <svg id="theme-toggle-light-icon" class="hidden w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z"></path></svg>
+                </button>
+
+                <div class="mb-8">
+                    <img src="assets/images/paul-watkins-profile.jpg" alt="Paul Watkins" class="w-32 h-32 rounded-2xl object-cover shadow-lg mb-6 border border-zinc-200 dark:border-zinc-800">
+                    <h1 class="text-3xl font-bold tracking-tight mb-2">Paul Watkins</h1>
+                    <p class="text-zinc-500 dark:text-zinc-400 font-medium">CA CTA BSc (Hons)</p>
+                </div>
+
+                <nav class="flex flex-col space-y-4 mb-12">
+                    <a href="#executive-summary" class="nav-link text-indigo-600 dark:text-indigo-400 font-bold hover:text-indigo-600 transition-all duration-200 uppercase tracking-widest text-xs">01. Executive Summary</a>
+                    <a href="#employment" class="nav-link text-zinc-500 dark:text-zinc-400 hover:text-indigo-600 transition-all duration-200 uppercase tracking-widest text-xs">02. Employment History</a>
+                    <a href="#leadership" class="nav-link text-zinc-500 dark:text-zinc-400 hover:text-indigo-600 transition-all duration-200 uppercase tracking-widest text-xs">03. Leadership</a>
+                    <a href="#transactions" class="nav-link text-zinc-500 dark:text-zinc-400 hover:text-indigo-600 transition-all duration-200 uppercase tracking-widest text-xs">04. Transactions</a>
+                    <a href="#compliance" class="nav-link text-zinc-500 dark:text-zinc-400 hover:text-indigo-600 transition-all duration-200 uppercase tracking-widest text-xs">05. Compliance & Reporting</a>
+                    <a href="#systems" class="nav-link text-zinc-500 dark:text-zinc-400 hover:text-indigo-600 transition-all duration-200 uppercase tracking-widest text-xs">06. Systems & Software</a>
+                    <a href="#education" class="nav-link text-zinc-500 dark:text-zinc-400 hover:text-indigo-600 transition-all duration-200 uppercase tracking-widest text-xs">07. Education History</a>
+                    <a href="#hobbies" class="nav-link text-zinc-500 dark:text-zinc-400 hover:text-indigo-600 transition-all duration-200 uppercase tracking-widest text-xs">08. Hobbies & Interests</a>
+                </nav>
+
+                <div class="mt-auto pt-8 border-t border-zinc-200 dark:border-zinc-800">
+                    <ul class="space-y-3 text-sm text-zinc-600 dark:text-zinc-300">
+                        <li class="flex items-center space-x-3 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
+                            <a href="mailto:paul@paulwatkins.co.uk">paul@paulwatkins.co.uk</a>
+                        </li>
+                        <li class="flex items-center space-x-3 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors">
+                            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
+                            <a href="https://www.linkedin.com/in/paul-watkins-a9048221/" target="_blank">LinkedIn Profile</a>
+                        </li>
+                        <li class="flex items-center space-x-3">
+                            <svg class="w-4 h-4 text-zinc-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
+                            <span>London, UK</span>
+                        </li>
+                    </ul>
+                </div>
+            </aside>
+
+            <main class="md:col-span-8 space-y-24">
+                
+                <section id="executive-summary" class="scroll-mt-24">
+                    <h2 class="text-indigo-600 dark:text-indigo-400 font-bold text-2xl mb-6 flex items-center">
+                        <span class="w-8 h-px bg-indigo-600 dark:bg-indigo-400 mr-4"></span>
+                        Executive Summary
+                    </h2>
+                    <ul class="space-y-4 text-zinc-600 dark:text-zinc-300">
+                        <li class="flex items-start">
+                            <span class="text-indigo-600 mr-3">&bull;</span>
+                            <span>Experienced (20 years+) tax professional focused on M&A, capital markets and structured finance with significant praactical experience of compliance and reporting, transfer pricing, disputes/controversy, indirect taxes and people management and development. Based in London with previous experience in Sydney (2 years) and Mexico City (3 months).  Countries of focus have included US, UK, Japan, China and India however responsibilities have previously included many other countries. Former KPMG Director and SoftBank Group Partner.</span>
+                        </li>
+                       <li class="flex items-start">
+                            <span class="text-indigo-600 mr-3">&bull;</span>
+                            <span>Joined SoftBank Group International (SBGI) in October 2018 following a major corporate restructuring to work with the SBGI Head of Tax to build a comprehensive new tax function. This included recruitment, tendering outsourced compliance, implementation of OneSource Tax Provision, new proceesses/controls and all other aspects of building a tax function.  In addition to overseeing day to day compliance and reporting matters, primary focus was transactions.</span>
+                        </li>
+                         <li class="flex items-start">
+                            <span class="text-indigo-600 mr-3">&bull;</span>
+                            <span>Joined KPMG in August 2005 where I was focused on compliance and reporting for SMEs. After secondments in tax technology (supporting Alphatax), FS M&A tax and M&A tax in Mexico, moved to London in January 2011 to focus on M&A tax for large corporate clients.  Seconded as Executive Assistant to the UK Head of Tax (Jane McCormick) where I gained significant leadership experience and insight into running the KPMG UK tax business. Spent a further two years seconded to KPMG Sydney, focused on corporate and private equity M&A.</span>
+                        </li>
+                    </ul>
+                </section>
+
+                <section id="employment" class="scroll-mt-24">
+                    <h2 class="text-indigo-600 dark:text-indigo-400 font-bold text-2xl mb-8 flex items-center">
+                        <span class="w-8 h-px bg-indigo-600 dark:bg-indigo-400 mr-4"></span>
+                        Employment & Role History
+                    </h2>
+                    <div class="space-y-8 border-l border-zinc-200 dark:border-zinc-800 pl-6 ml-2">
+                        
+                        <div class="relative">
+                            <div class="absolute w-3 h-3 bg-zinc-300 dark:bg-zinc-700 rounded-full -left-[31px] top-2 ring-4 ring-zinc-50 dark:ring-zinc-950"></div>
+                            <h3 class="text-xl font-bold text-zinc-900 dark:text-white">Partner, Group Tax</h3>
+                            <div class="text-sm text-zinc-500 dark:text-zinc-400 mt-1 mb-3">
+                                <span class="font-medium text-zinc-800 dark:text-zinc-200">SoftBank Group International (SBGI)</span> &bull; Oct 2018 &ndash; June 2026
+                            </div>
+                            <ul class="space-y-4 text-zinc-600 dark:text-zinc-300">
+                            <li class="flex items-start">
+                              <span class="text-indigo-600 mr-3">&bull;</span>
+                             <span>Strategic transactions for SBGI and SoftBank Group Corp</span>
+                            </li>
+                             <li class="flex items-start">
+                              <span class="text-indigo-600 mr-3">&bull;</span>
+                             <span>Overseeing compliance and reporting for SBGI</span>
+                            </li>
+                            </ul>
+                        </div>
+
+                        <div class="relative">
+                            <div class="absolute w-3 h-3 bg-zinc-300 dark:bg-zinc-700 rounded-full -left-[31px] top-2 ring-4 ring-zinc-50 dark:ring-zinc-950"></div>
+                            <h3 class="text-xl font-bold text-zinc-900 dark:text-white">Director, Deal Advisory Tax</h3>
+                            <div class="text-sm text-zinc-500 dark:text-zinc-400 mt-1 mb-3">
+                                <span class="font-medium text-zinc-800 dark:text-zinc-200">KPMG</span> &bull; Aug 2005 &ndash; Oct 2018
+                            </div>
+                            <ul class="space-y-4 text-zinc-600 dark:text-zinc-300">
+                            <li class="flex items-start">
+                              <span class="text-indigo-600 mr-3">&bull;</span>
+                             <span>Large Corporates, M&A Tax</span>
+                            </li>
+                            <li class="flex items-start">
+                              <span class="text-indigo-600 mr-3">&bull;</span>
+                             <span>Large Corporates and PE, M&A Tax (Sydney and Mexico)</span>
+                            </li>
+                            <li class="flex items-start">
+                              <span class="text-indigo-600 mr-3">&bull;</span>
+                             <span>Executive Assistant to UK Head of Tax</span>
+                            </li>
+                            <li class="flex items-start">
+                              <span class="text-indigo-600 mr-3">&bull;</span>
+                             <span>Tax Compliance and Reporting</span>
+                            </li>
+                            <li class="flex items-start">
+                              <span class="text-indigo-600 mr-3">&bull;</span>
+                             <span>Various other secondments e.g. Tax Technology, FS M&A</span>
+                            </li>
+                            </ul>
+                        </div>
+
+                    </div>
+                </section>
+
+                <section id="leadership" class="scroll-mt-24">
+                    <h2 class="text-indigo-600 dark:text-indigo-400 font-bold text-2xl mb-6 flex items-center">
+                        <span class="w-8 h-px bg-indigo-600 dark:bg-indigo-400 mr-4"></span>
+                        Leadership
+                    </h2>
+                    <ul class="space-y-4 text-zinc-600 dark:text-zinc-300">
+                        <li class="flex items-start">
+                            <span class="text-indigo-600 mr-3">&bull;</span>
+                            <span><strong>Function Building:</strong> Built the SBGI tax capability via external hires and external service providers. Assisted investee companies in building and structuring their in-house tax functions.</span>
+                        </li>
+                        <li class="flex items-start">
+                            <span class="text-indigo-600 mr-3">&bull;</span>
+                            <span><strong>Corporate Governance:</strong> Served as Statutory Director for SoftBank Group Capital Ltd (the primary UK investment entity), responsible for the smooth running of the tax function e.g. vendor management, budgeting/forecasting, billing.</span>
+                        </li>
+                        <li class="flex items-start">
+                            <span class="text-indigo-600 mr-3">&bull;</span>
+                            <span><strong>Cross-Functional Partnership:</strong> Responsible for maintaining senior relationships across Tax (with investees), Legal, Finance, the CFO Office, Capital Markets Group, Group Management and others.</span>
+                        </li>
+                        <li class="flex items-start">
+                            <span class="text-indigo-600 mr-3">&bull;</span>
+                            <span><strong>Team Management:</strong> Set and implemented strategy for the M&A Tax team in Corporates (~15 personnel). Served as Performance Manager for the M&A, International & Complex Tax Team.</span>
+                        </li>
+                        <li class="flex items-start">
+                            <span class="text-indigo-600 mr-3">&bull;</span>
+                            <span><strong>Talent & Development:</strong> Acted as an interviewer for external hires and managed the UK training programme for M&A Tax, frequently presented for the Global M&A Tax Training Programme.</span>
+                        </li>
+                    </ul>
+                </section>
+
+                <section id="transactions" class="scroll-mt-24">
+                    <h2 class="text-indigo-600 dark:text-indigo-400 font-bold text-2xl mb-6 flex items-center">
+                        <span class="w-8 h-px bg-indigo-600 dark:bg-indigo-400 mr-4"></span>
+                        Transactions
+                    </h2>
+                    <p class="text-zinc-600 dark:text-zinc-300 mb-6">
+                        Led strategic transactions including acquisitions, joint ventures, capital markets, SPACs, and disposals, ultimately providing final tax approval to proceed.  Recent examples include:
+                    </p>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div class="p-5 rounded-lg border border-zinc-200 dark:border-zinc-800 bg-white/50 dark:bg-zinc-900/50 backdrop-blur-sm">
+                            <h4 class="font-bold text-zinc-900 dark:text-white mb-2">Acquisitions & Integration</h4>
+                            <p class="text-sm text-zinc-600 dark:text-zinc-400">Carve out of ABB's robotics division from ABB. Acquisitions of Digital Bridge, Boston Dynamics, Balyo, Ampere, and Graphcore.</p>
+                        </div>
+                        <div class="p-5 rounded-lg border border-zinc-200 dark:border-zinc-800 bg-white/50 dark:bg-zinc-900/50 backdrop-blur-sm">
+                            <h4 class="font-bold text-zinc-900 dark:text-white mb-2">Minority Investments</h4>
+                            <p class="text-sm text-zinc-600 dark:text-zinc-400">Multiple investment rounes in OpenAI and Agile Robotics. Exol/Greenbox joint venture with Symbotic.</p>
+                        </div>
+                        <div class="p-5 rounded-lg border border-zinc-200 dark:border-zinc-800 bg-white/50 dark:bg-zinc-900/50 backdrop-blur-sm">
+                            <h4 class="font-bold text-zinc-900 dark:text-white mb-2">Capital Markets & IPO</h4>
+                            <p class="text-sm text-zinc-600 dark:text-zinc-400">Multiple financing transactions and the IPO of Arm Holdings.</p>
+                        </div>
+                        <div class="p-5 rounded-lg border border-zinc-200 dark:border-zinc-800 bg-white/50 dark:bg-zinc-900/50 backdrop-blur-sm">
+                            <h4 class="font-bold text-zinc-900 dark:text-white mb-2">Disposals</h4>
+                            <p class="text-sm text-zinc-600 dark:text-zinc-400">Complex financial instruments and ultimately the divestments of Alibaba and T-Mobile US over several years.</p>
+                        </div>
+                    </div>
+                </section>
+
+                <section id="compliance" class="scroll-mt-24">
+                    <h2 class="text-indigo-600 dark:text-indigo-400 font-bold text-2xl mb-6 flex items-center">
+                        <span class="w-8 h-px bg-indigo-600 dark:bg-indigo-400 mr-4"></span>
+                        Compliance & Reporting
+                    </h2>
+                    <div class="space-y-6">
+                        <div>
+                            <h3 class="font-semibold text-zinc-900 dark:text-white mb-2">Compliance</h3>
+                            <p class="text-zinc-600 dark:text-zinc-300 text-sm leading-relaxed">
+                                Experience with overseeing and managing tax compliance throughout the UK, the US and multiple European, Asian and Latin American jurisdictions (including Pillar 2 obligations). This has included corporate income tax, indirect taxes, state and local taxes and stamp duty.
+                            </p>
+                        </div>
+                        <div>
+                            <h3 class="font-semibold text-zinc-900 dark:text-white mb-2">Reporting</h3>
+                            <p class="text-zinc-600 dark:text-zinc-300 text-sm leading-relaxed">
+                                IFRS, US GAAP and UK GAAP reporting including quarterly, statutory and management reporting. Led relationship with auditors across several countries and business units. Responsible for presenting quarterly tax updates to senior leadership (e.g. Global Head of Accounting, Group Management and Internal Audit).
+                            </p>
+                        </div>
+                         <div>
+                            <h3 class="font-semibold text-zinc-900 dark:text-white mb-2">Transfer Pricing</h3>
+                            <p class="text-zinc-600 dark:text-zinc-300 text-sm leading-relaxed">
+                                Oversaw a refresh of group transfer pricing policy including working with advisers to design, implement and operate the model. This included understanding the global direct and indirect tax obligations and presenting the proposal to senior leadership for approval. Working with accounting, treasury and AP/AR on an ongoing basis to operate the TP policy. Explained and defended policy to HMRC CCM. Ensured group was current with local file, CbCR and other obligations.
+                            </p>
+                        </div>
+                         <div>
+                            <h3 class="font-semibold text-zinc-900 dark:text-white mb-2">Controvercy and Audits</h3>
+                            <p class="text-zinc-600 dark:text-zinc-300 text-sm leading-relaxed">
+                             Owned and managed the UK HMRC relationship (CCM) including managing several complicated enquiries across multiple years and issues including transfer pricing, capital allowances, corporate income tax and indirect taxes.  Managed the US IRS relationship including several audits and enquiries across multiple years and issues including transfer pricing. Managed strategy in respect of US, Indian and Chinese tax audits.
+                            </p>
+                        </div>
+                    </div>
+                </section>
+
+                <section id="systems" class="scroll-mt-24">
+                    <h2 class="text-indigo-600 dark:text-indigo-400 font-bold text-2xl mb-6 flex items-center">
+                        <span class="w-8 h-px bg-indigo-600 dark:bg-indigo-400 mr-4"></span>
+                        Systems & Software
+                    </h2>
+                <div class="flex flex-wrap gap-3">
+                        <span class="px-4 py-2 bg-zinc-100 dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-full text-sm font-medium text-zinc-700 dark:text-zinc-300">Word</span>
+                        <span class="px-4 py-2 bg-zinc-100 dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-full text-sm font-medium text-zinc-700 dark:text-zinc-300">Excel</span>
+                        <span class="px-4 py-2 bg-zinc-100 dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-full text-sm font-medium text-zinc-700 dark:text-zinc-300">PowerPoint</span>
+                        <span class="px-4 py-2 bg-zinc-100 dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-full text-sm font-medium text-zinc-700 dark:text-zinc-300">Netsuite</span>
+                        <span class="px-4 py-2 bg-zinc-100 dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-full text-sm font-medium text-zinc-700 dark:text-zinc-300">DIVA</span>
+                        <span class="px-4 py-2 bg-zinc-100 dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-full text-sm font-medium text-zinc-700 dark:text-zinc-300">OneSource Tax Provision</span>
+                        <span class="px-4 py-2 bg-zinc-100 dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-full text-sm font-medium text-zinc-700 dark:text-zinc-300">ChatGPT</span>
+                        <span class="px-4 py-2 bg-zinc-100 dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-full text-sm font-medium text-zinc-700 dark:text-zinc-300">Gemini</span>
+                        <span class="px-4 py-2 bg-zinc-100 dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-full text-sm font-medium text-zinc-700 dark:text-zinc-300">LM Studio</span>
+                        <span class="px-4 py-2 bg-zinc-100 dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-full text-sm font-medium text-zinc-700 dark:text-zinc-300">Alphatax</span>
+                </div>
+                </section>
+
+                <section id="education" class="scroll-mt-24">
+                    <h2 class="text-indigo-600 dark:text-indigo-400 font-bold text-2xl mb-6 flex items-center">
+                        <span class="w-8 h-px bg-indigo-600 dark:bg-indigo-400 mr-4"></span>
+                        Education History
+                    </h2>
+                    <ul class="space-y-4 text-zinc-600 dark:text-zinc-300">
+                        <li class="flex justify-between items-center border-b border-zinc-200 dark:border-zinc-800 pb-3">
+                            <div>
+                                <span class="font-bold text-zinc-900 dark:text-white block">Chartered Tax Adviser (CTA)</span>
+                                <span class="text-sm">Chartered Institute of Taxation</span>
+                            </div>
+                            <span class="text-sm font-medium text-zinc-500">Admitted Aug 2008</span>
+                        </li>
+                        <li class="flex justify-between items-center border-b border-zinc-200 dark:border-zinc-800 pb-3">
+                            <div>
+                                <span class="font-bold text-zinc-900 dark:text-white block">Chartered Accountant (CA)</span>
+                                <span class="text-sm">Institute of Chartered Accountants of Scotland</span>
+                            </div>
+                            <span class="text-sm font-medium text-zinc-500">Admitted Aug 2008</span>
+                        </li>
+                        <li class="flex justify-between items-center pb-3">
+                            <div>
+                                <span class="font-bold text-zinc-900 dark:text-white block">BSc Physics (with honours), 2:1</span>
+                                <span class="text-sm">University of Southampton</span>
+                            </div>
+                            <span class="text-sm font-medium text-zinc-500">Graduated Jul 2005</span>
+                        </li>
+                    </ul>
+                </section>
+
+                <section id="hobbies" class="scroll-mt-24">
+                    <h2 class="text-indigo-600 dark:text-indigo-400 font-bold text-2xl mb-6 flex items-center">
+                        <span class="w-8 h-px bg-indigo-600 dark:bg-indigo-400 mr-4"></span>
+                        Hobbies & Interests
+                    </h2>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                        <div>
+                            <h4 class="font-bold text-zinc-900 dark:text-white mb-2">Technology & Gaming</h4>
+                            <p class="text-sm text-zinc-600 dark:text-zinc-400">Deep interest in consumer tech, computing hardware platforms, and the structural capacity of LLMs to transform global societal systems.</p>
+                        </div>
+                        <div>
+                            <h4 class="font-bold text-zinc-900 dark:text-white mb-2">Endurance Training</h4>
+                            <p class="text-sm text-zinc-600 dark:text-zinc-400">Active distance runner and cyclist. Serving committee member for East London Runners running club.</p>
+                        </div>
+                        <div class="sm:col-span-2">
+                            <h4 class="font-bold text-zinc-900 dark:text-white mb-2">Civic Engagement & Advising</h4>
+                            <p class="text-sm text-zinc-600 dark:text-zinc-400">Volunteer mathematics tutor for Action Tutoring. Previously served as business adviser for Enactus UK.</p>
+                        </div>
+                    </div>
+                </section>
+                
+            </main>
+        </div>
+    </div>
+</body>
+</html>
