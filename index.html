@@ -4,7 +4,17 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Paul Watkins | CV</title>
-    <script src="https://cdn.tailwindcss.com"></script>
+    <meta name="description" content="Paul Watkins CA CTA, Head of Tax at Ninety One. Senior tax leader with over 20 years&rsquo; experience spanning Big 4 Deal Advisory and partner level leadership.">
+    <meta property="og:type" content="profile">
+    <meta property="og:title" content="Paul Watkins | CV">
+    <meta property="og:description" content="Head of Tax at Ninety One. Senior tax leader with over 20 years&rsquo; experience spanning Big 4 Deal Advisory and partner level leadership.">
+    <meta property="og:url" content="https://cv.paulwatkins.co.uk/">
+    <meta property="og:image" content="https://cv.paulwatkins.co.uk/assets/images/paul-watkins-profile.jpg">
+    <meta name="twitter:card" content="summary">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap">
+    <script src="https://cdn.tailwindcss.com/3.4.17"></script>
     <script>
         tailwind.config = {
             darkMode: 'class',
@@ -21,7 +31,6 @@
         }
     </script>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
         html { scroll-behavior: smooth; }
         body { font-family: 'Inter', sans-serif; transition: background-color 0.3s ease, color 0.3s ease; }
         ::-webkit-scrollbar { width: 6px; }
@@ -66,28 +75,31 @@
             const sections = document.querySelectorAll('section[id]');
             const navLinks = document.querySelectorAll('.nav-link');
 
-            const observerOptions = {
-                root: null,
-                rootMargin: '0px 0px -60% 0px',
-                threshold: 0.1
+            // Highlight every menu item whose section is visible on screen,
+            // so short sections near the bottom are never missed on tall screens.
+            const visible = new Set();
+
+            const setHighlight = (link, on) => {
+                link.classList.toggle('text-indigo-600', on);
+                link.classList.toggle('dark:text-indigo-400', on);
+                link.classList.toggle('font-bold', on);
+                link.classList.toggle('text-zinc-500', !on);
+                link.classList.toggle('dark:text-zinc-400', !on);
             };
 
             const observer = new IntersectionObserver((entries) => {
                 entries.forEach(entry => {
+                    const id = entry.target.getAttribute('id');
                     if (entry.isIntersecting) {
-                        const id = entry.target.getAttribute('id');
-                        
-                        navLinks.forEach(link => {
-                            link.classList.remove('text-indigo-600', 'dark:text-indigo-400', 'font-bold');
-                            link.classList.add('text-zinc-500', 'dark:text-zinc-400');
-                            if (link.getAttribute('href') === `#${id}`) {
-                                link.classList.add('text-indigo-600', 'dark:text-indigo-400', 'font-bold');
-                                link.classList.remove('text-zinc-500', 'dark:text-zinc-400');
-                            }
-                        });
+                        visible.add(id);
+                    } else {
+                        visible.delete(id);
                     }
                 });
-            }, observerOptions);
+                navLinks.forEach(link => {
+                    setHighlight(link, visible.has(link.getAttribute('href').slice(1)));
+                });
+            }, { threshold: 0 });
 
             sections.forEach(section => {
                 observer.observe(section);
@@ -101,7 +113,7 @@
         <div class="grid grid-cols-1 md:grid-cols-12 gap-12 pt-12 md:pt-24 pb-24">
             
             <aside class="md:col-span-4 flex flex-col md:sticky md:top-24 h-max">
-                <button id="theme-toggle" class="absolute -top-6 right-0 p-2 rounded-full bg-zinc-200 dark:bg-zinc-800 text-zinc-500 dark:text-zinc-400 hover:bg-zinc-300 dark:hover:bg-zinc-700 transition-colors focus:outline-none">
+                <button id="theme-toggle" type="button" aria-label="Toggle dark mode" class="absolute -top-6 right-0 p-2 rounded-full bg-zinc-200 dark:bg-zinc-800 text-zinc-500 dark:text-zinc-400 hover:bg-zinc-300 dark:hover:bg-zinc-700 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-indigo-600 dark:focus-visible:ring-indigo-400">
                     <svg id="theme-toggle-dark-icon" class="hidden w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"></path></svg>
                     <svg id="theme-toggle-light-icon" class="hidden w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z"></path></svg>
                 </button>
@@ -116,12 +128,13 @@
                     <a href="#executive-summary" class="nav-link text-indigo-600 dark:text-indigo-400 font-bold hover:text-indigo-600 transition-all duration-200 uppercase tracking-widest text-xs">01. Executive Summary</a>
                     <a href="#employment" class="nav-link text-zinc-500 dark:text-zinc-400 hover:text-indigo-600 transition-all duration-200 uppercase tracking-widest text-xs">02. Employment History</a>
                     <a href="#sector-experience" class="nav-link text-zinc-500 dark:text-zinc-400 hover:text-indigo-600 transition-all duration-200 uppercase tracking-widest text-xs">03. Sector Experience</a>
-                    <a href="#leadership" class="nav-link text-zinc-500 dark:text-zinc-400 hover:text-indigo-600 transition-all duration-200 uppercase tracking-widest text-xs">04. Leadership</a>
-                    <a href="#transactions" class="nav-link text-zinc-500 dark:text-zinc-400 hover:text-indigo-600 transition-all duration-200 uppercase tracking-widest text-xs">05. Transactions</a>
-                    <a href="#compliance" class="nav-link text-zinc-500 dark:text-zinc-400 hover:text-indigo-600 transition-all duration-200 uppercase tracking-widest text-xs">06. Compliance & Reporting</a>
-                    <a href="#systems" class="nav-link text-zinc-500 dark:text-zinc-400 hover:text-indigo-600 transition-all duration-200 uppercase tracking-widest text-xs">07. Systems & Software</a>
-                    <a href="#education" class="nav-link text-zinc-500 dark:text-zinc-400 hover:text-indigo-600 transition-all duration-200 uppercase tracking-widest text-xs">08. Education History</a>
-                    <a href="#hobbies" class="nav-link text-zinc-500 dark:text-zinc-400 hover:text-indigo-600 transition-all duration-200 uppercase tracking-widest text-xs">09. Hobbies & Interests</a>
+                    <a href="#country-experience" class="nav-link text-zinc-500 dark:text-zinc-400 hover:text-indigo-600 transition-all duration-200 uppercase tracking-widest text-xs">04. Country Experience</a>
+                    <a href="#leadership" class="nav-link text-zinc-500 dark:text-zinc-400 hover:text-indigo-600 transition-all duration-200 uppercase tracking-widest text-xs">05. Leadership</a>
+                    <a href="#transactions" class="nav-link text-zinc-500 dark:text-zinc-400 hover:text-indigo-600 transition-all duration-200 uppercase tracking-widest text-xs">06. Transactions</a>
+                    <a href="#compliance" class="nav-link text-zinc-500 dark:text-zinc-400 hover:text-indigo-600 transition-all duration-200 uppercase tracking-widest text-xs">07. Compliance & Reporting</a>
+                    <a href="#systems" class="nav-link text-zinc-500 dark:text-zinc-400 hover:text-indigo-600 transition-all duration-200 uppercase tracking-widest text-xs">08. Systems & Software</a>
+                    <a href="#education" class="nav-link text-zinc-500 dark:text-zinc-400 hover:text-indigo-600 transition-all duration-200 uppercase tracking-widest text-xs">09. Education History</a>
+                    <a href="#hobbies" class="nav-link text-zinc-500 dark:text-zinc-400 hover:text-indigo-600 transition-all duration-200 uppercase tracking-widest text-xs">10. Hobbies & Interests</a>
                 </nav>
 
                 <div class="mt-auto pt-8 border-t border-zinc-200 dark:border-zinc-800">
@@ -149,28 +162,73 @@
                         <span class="w-8 h-px bg-indigo-600 dark:bg-indigo-400 mr-4"></span>
                         Executive Summary
                     </h2>
+                    <p class="text-zinc-600 dark:text-zinc-300 mb-4">
+                        Head of Tax at Ninety One, leading the group&rsquo;s tax risk, compliance and advisory
+                        agenda across the UK, South Africa and international operations, and acting as the trusted
+                        tax adviser to senior leadership across the business.
+                    </p>
+                    <p class="text-zinc-600 dark:text-zinc-300 mb-4">
+                        Over 20 years&rsquo; experience, spanning Big 4 Deal Advisory and partner level leadership. 
+                        Proven track record of building and scaling tax functions, leading teams, managing 
+                        multijurisdictional risk and control frameworks, and translating complex or unsettled 
+                        technical positions into clear, commercial recommendations.
+                    </p>
                     <p class="text-zinc-600 dark:text-zinc-300 mb-6">
-                        A commercially driven senior tax leader with over 20 years of experience spanning Big 
-                        4 Deal Advisory and partner level leadership inside a multi billion dollar global investment 
-                        business. Proven track record of building tax functions from scratch, structuring 
-                        complex cross-border intellectual property and managing multijurisdictional risk frameworks. 
-                        Adept at navigating complex controversies with global tax authorities, leading high value group
-                         restructurings and embedding robust tax governance.
+                        Adept at navigating controversies with global tax authorities, leading high value 
+                        transactions and restructurings, and embedding robust tax governance.
                     </p>
                 </section>
 
                 <section id="employment" class="scroll-mt-24">
                     <h2 class="text-indigo-600 dark:text-indigo-400 font-bold text-2xl mb-8 flex items-center">
                         <span class="w-8 h-px bg-indigo-600 dark:bg-indigo-400 mr-4"></span>
-                        Employment & Role History
+                        Employment History
                     </h2>
                     <div class="space-y-8 border-l border-zinc-200 dark:border-zinc-800 pl-6 ml-2">
                         
                         <div class="relative">
                             <div class="absolute w-3 h-3 bg-zinc-300 dark:bg-zinc-700 rounded-full -left-[31px] top-2 ring-4 ring-zinc-50 dark:ring-zinc-950"></div>
+                            <h3 class="text-xl font-bold text-zinc-900 dark:text-white">Head of Tax</h3>
+                            <div class="text-sm text-zinc-500 dark:text-zinc-400 mt-1 mb-3">
+                                <span class="font-medium text-zinc-800 dark:text-zinc-200">Ninety One</span> &bull; Sep 2026 &ndash; Present
+                            </div>
+                            <ul class="space-y-4 text-zinc-600 dark:text-zinc-300">
+                            <li class="flex items-start">
+                              <span class="text-indigo-600 mr-3">&bull;</span>
+                             <span><strong>Function Leadership:</strong> Appointed to lead Ninety One&rsquo;s tax function, taking ownership of the group&rsquo;s tax risk, compliance and advisory agenda across the UK, South Africa and international operations. Quickly established priorities and gained a working understanding of the group&rsquo;s fund and corporate structures.</span>
+                            </li>
+                            <li class="flex items-start">
+                              <span class="text-indigo-600 mr-3">&bull;</span>
+                             <span><strong>Team Leadership & Delegation:</strong> Lead and develop a multi-jurisdiction tax team. Prioritise and allocate incoming work, set review standards for outputs and support colleagues in producing high-quality advice and external correspondence.</span>
+                            </li>
+                            <li class="flex items-start">
+                              <span class="text-indigo-600 mr-3">&bull;</span>
+                             <span><strong>Senior Stakeholder Partnership:</strong> Act as the trusted tax adviser to Investment, Product, Distribution, Finance, Legal, Compliance, Company Secretariat, HR and Reward leadership. Translate complex technical positions into clear, commercial recommendations that senior decision-makers can act on.</span>
+                            </li>
+                            <li class="flex items-start">
+                              <span class="text-indigo-600 mr-3">&bull;</span>
+                             <span><strong>Professional Judgement & Risk:</strong> Take positions on matters where the law is unsettled or the answer is commercially sensitive, including fund and mandate structuring, stamp duty, R&D relief and the tax treatment of client exemptions. Balance technical robustness, commercial objectives and reputational risk, and escalate where necessary.</span>
+                            </li>
+                            <li class="flex items-start">
+                              <span class="text-indigo-600 mr-3">&bull;</span>
+                             <span><strong>Advisers & Cost Control:</strong> Select, scope and challenge external advisers and auditors across several jurisdictions. Make &ldquo;build, buy or advise&rdquo; decisions, and push back where the cost or scope of work isn&rsquo;t justified.</span>
+                            </li>
+                            <li class="flex items-start">
+                              <span class="text-indigo-600 mr-3">&bull;</span>
+                             <span><strong>Regulatory & Industry Engagement:</strong> Lead Ninety One&rsquo;s tax input to legislative and regulatory consultations, including proposed South African tax changes. Work with industry bodies and regulators to shape the outcome.</span>
+                            </li>
+                            <li class="flex items-start">
+                              <span class="text-indigo-600 mr-3">&bull;</span>
+                             <span><strong>Governance & Controls:</strong> Own the tax control environment, including accounting and reporting positions, fund-level compliance and the group&rsquo;s approach to client withholding and documentation.</span>
+                            </li>
+                            </ul>
+                        </div>
+
+                        <div class="relative">
+                            <div class="absolute w-3 h-3 bg-zinc-300 dark:bg-zinc-700 rounded-full -left-[31px] top-2 ring-4 ring-zinc-50 dark:ring-zinc-950"></div>
                             <h3 class="text-xl font-bold text-zinc-900 dark:text-white">Partner, Group Tax</h3>
                             <div class="text-sm text-zinc-500 dark:text-zinc-400 mt-1 mb-3">
-                                <span class="font-medium text-zinc-800 dark:text-zinc-200">SoftBank Group International (SBGI)</span> &bull; Oct 2018 &ndash; June 2026
+                                <span class="font-medium text-zinc-800 dark:text-zinc-200">SoftBank Group International (SBGI)</span> &bull; Oct 2018 &ndash; Jun 2026
                             </div>
                             <ul class="space-y-4 text-zinc-600 dark:text-zinc-300">
                             <li class="flex items-start">
@@ -184,10 +242,9 @@
                               <span class="text-indigo-600 mr-3">&bull;</span>
                              <span><strong>Corporate Governance & Stewardship:</strong> Appointed as a director for
                                  SoftBank Group Capital Ltd (the primary UK investment entity). 
-                                 Spearheaded group wide tax compliance approach across 15+ countries covering
+                                 Spearheaded the group wide tax compliance approach across 15+ countries covering
                                   federal, state, direct and indirect taxes.</span>
                             </li>
-                               </li>
                              <li class="flex items-start">
                               <span class="text-indigo-600 mr-3">&bull;</span>
                              <span><strong>Strategic Integration & Optimisation:</strong> Directed comprehensive
@@ -253,10 +310,35 @@
                         <span class="px-4 py-2 bg-zinc-100 dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-full text-sm font-medium text-zinc-700 dark:text-zinc-300">Early stage investments</span>
                         <span class="px-4 py-2 bg-zinc-100 dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-full text-sm font-medium text-zinc-700 dark:text-zinc-300">Japanese headed groups</span>
                         <span class="px-4 py-2 bg-zinc-100 dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-full text-sm font-medium text-zinc-700 dark:text-zinc-300">UK headed groups</span>
+                        <span class="px-4 py-2 bg-zinc-100 dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-full text-sm font-medium text-zinc-700 dark:text-zinc-300">Asset management</span>
                 </div>
                 </section>
 
 
+
+                <section id="country-experience" class="scroll-mt-24">
+                    <h2 class="text-indigo-600 dark:text-indigo-400 font-bold text-2xl mb-6 flex items-center">
+                        <span class="w-8 h-px bg-indigo-600 dark:bg-indigo-400 mr-4"></span>
+                        Country Experience
+                    </h2>
+                <div class="flex flex-wrap gap-3">
+                        <span class="px-4 py-2 bg-zinc-100 dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-full text-sm font-medium text-zinc-700 dark:text-zinc-300">UK</span>
+                        <span class="px-4 py-2 bg-zinc-100 dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-full text-sm font-medium text-zinc-700 dark:text-zinc-300">US</span>
+                        <span class="px-4 py-2 bg-zinc-100 dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-full text-sm font-medium text-zinc-700 dark:text-zinc-300">Australia</span>
+                        <span class="px-4 py-2 bg-zinc-100 dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-full text-sm font-medium text-zinc-700 dark:text-zinc-300">South Africa</span>
+                        <span class="px-4 py-2 bg-zinc-100 dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-full text-sm font-medium text-zinc-700 dark:text-zinc-300">Japan</span>
+                        <span class="px-4 py-2 bg-zinc-100 dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-full text-sm font-medium text-zinc-700 dark:text-zinc-300">Mexico</span>
+                        <span class="px-4 py-2 bg-zinc-100 dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-full text-sm font-medium text-zinc-700 dark:text-zinc-300">China</span>
+                        <span class="px-4 py-2 bg-zinc-100 dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-full text-sm font-medium text-zinc-700 dark:text-zinc-300">India</span>
+                        <span class="px-4 py-2 bg-zinc-100 dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-full text-sm font-medium text-zinc-700 dark:text-zinc-300">Singapore</span>
+                        <span class="px-4 py-2 bg-zinc-100 dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-full text-sm font-medium text-zinc-700 dark:text-zinc-300">Hong Kong</span>
+                        <span class="px-4 py-2 bg-zinc-100 dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-full text-sm font-medium text-zinc-700 dark:text-zinc-300">Canada</span>
+                        <span class="px-4 py-2 bg-zinc-100 dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-full text-sm font-medium text-zinc-700 dark:text-zinc-300">Luxembourg</span>
+                        <span class="px-4 py-2 bg-zinc-100 dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-full text-sm font-medium text-zinc-700 dark:text-zinc-300">Germany</span>
+                        <span class="px-4 py-2 bg-zinc-100 dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-full text-sm font-medium text-zinc-700 dark:text-zinc-300">Sweden</span>
+                        <span class="px-4 py-2 bg-zinc-100 dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-full text-sm font-medium text-zinc-700 dark:text-zinc-300">Many others</span>
+                </div>
+                </section>
 
                 <section id="leadership" class="scroll-mt-24">
                     <h2 class="text-indigo-600 dark:text-indigo-400 font-bold text-2xl mb-6 flex items-center">
@@ -300,23 +382,23 @@
                     </p>
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                         <div class="p-5 rounded-lg border border-zinc-200 dark:border-zinc-800 bg-white/50 dark:bg-zinc-900/50 backdrop-blur-sm">
-                            <h4 class="font-bold text-zinc-900 dark:text-white mb-2">Acquisitions & Integration</h4>
-                            <p class="text-sm text-zinc-600 dark:text-zinc-400">Carve out of ABB's robotics division
-                                from ABB. Acquisitions of Digital Bridge, Boston Dynamics, Balyo, Ampere
+                            <h3 class="font-bold text-zinc-900 dark:text-white mb-2">Acquisitions & Integration</h3>
+                            <p class="text-sm text-zinc-600 dark:text-zinc-400">Carve-out of ABB's robotics division.
+                                Acquisitions of DigitalBridge, Boston Dynamics, Balyo, Ampere
                                  and Graphcore.</p>
                         </div>
                         <div class="p-5 rounded-lg border border-zinc-200 dark:border-zinc-800 bg-white/50 dark:bg-zinc-900/50 backdrop-blur-sm">
-                            <h4 class="font-bold text-zinc-900 dark:text-white mb-2">Minority Investments</h4>
+                            <h3 class="font-bold text-zinc-900 dark:text-white mb-2">Minority Investments</h3>
                             <p class="text-sm text-zinc-600 dark:text-zinc-400">Multiple investment rounds in
-                                OpenAI and Agile Robotics. Exol/Greenbox joint venture with Symbotic.</p>
+                                OpenAI and Agile Robots. Exol joint venture with Symbotic.</p>
                         </div>
                         <div class="p-5 rounded-lg border border-zinc-200 dark:border-zinc-800 bg-white/50 dark:bg-zinc-900/50 backdrop-blur-sm">
-                            <h4 class="font-bold text-zinc-900 dark:text-white mb-2">Capital Markets & IPO</h4>
+                            <h3 class="font-bold text-zinc-900 dark:text-white mb-2">Capital Markets & IPO</h3>
                             <p class="text-sm text-zinc-600 dark:text-zinc-400">Multiple financing transactions
                                 and the IPO of Arm Holdings.</p>
                         </div>
                         <div class="p-5 rounded-lg border border-zinc-200 dark:border-zinc-800 bg-white/50 dark:bg-zinc-900/50 backdrop-blur-sm">
-                            <h4 class="font-bold text-zinc-900 dark:text-white mb-2">Disposals</h4>
+                            <h3 class="font-bold text-zinc-900 dark:text-white mb-2">Disposals</h3>
                             <p class="text-sm text-zinc-600 dark:text-zinc-400">Complex financial instruments
                                 and ultimately the divestments of Alibaba and T-Mobile US over several years.</p>
                         </div>
@@ -345,7 +427,8 @@
                             <h3 class="font-semibold text-zinc-900 dark:text-white mb-2">Reporting</h3>
                             <p class="text-zinc-600 dark:text-zinc-300 text-sm leading-relaxed">
                                 IFRS, US GAAP and UK GAAP reporting including quarterly, statutory and management
-                                 reporting. Led relationship with auditors across several countries and business units.
+                                 reporting. Led the relationship with auditors across several countries and business units.
+                                 Tax transparency and investor reporting, including Public CbCR, reporting funds and FATCA/CRS/AEOI.
                             </p>
                         </div>
                          <div>
@@ -356,11 +439,11 @@
                                  direct and indirect tax obligations and presenting the proposal to senior leadership 
                                  for approval. Working with accounting, treasury and AP/AR on an ongoing basis
                                   to operate the TP policy. Explained and defended policy to HMRC CCM. 
-                                  Ensured group was current with local file, CbCR etc.
+                                  Ensured the group was up to date with local files, CbCR, etc.
                             </p>
                         </div>
                          <div>
-                            <h3 class="font-semibold text-zinc-900 dark:text-white mb-2">Controvercy and Audits</h3>
+                            <h3 class="font-semibold text-zinc-900 dark:text-white mb-2">Controversy and Audits</h3>
                             <p class="text-zinc-600 dark:text-zinc-300 text-sm leading-relaxed">
                              Owned and managed the UK HMRC relationship (CCM) including managing several
                               complicated enquiries across multiple years and issues including transfer pricing,
@@ -381,10 +464,11 @@
                         <span class="px-4 py-2 bg-zinc-100 dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-full text-sm font-medium text-zinc-700 dark:text-zinc-300">Word</span>
                         <span class="px-4 py-2 bg-zinc-100 dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-full text-sm font-medium text-zinc-700 dark:text-zinc-300">Excel</span>
                         <span class="px-4 py-2 bg-zinc-100 dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-full text-sm font-medium text-zinc-700 dark:text-zinc-300">PowerPoint</span>
-                        <span class="px-4 py-2 bg-zinc-100 dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-full text-sm font-medium text-zinc-700 dark:text-zinc-300">Netsuite</span>
+                        <span class="px-4 py-2 bg-zinc-100 dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-full text-sm font-medium text-zinc-700 dark:text-zinc-300">NetSuite</span>
                         <span class="px-4 py-2 bg-zinc-100 dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-full text-sm font-medium text-zinc-700 dark:text-zinc-300">OneSource Tax Provision</span>
                         <span class="px-4 py-2 bg-zinc-100 dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-full text-sm font-medium text-zinc-700 dark:text-zinc-300">ChatGPT</span>
                         <span class="px-4 py-2 bg-zinc-100 dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-full text-sm font-medium text-zinc-700 dark:text-zinc-300">Gemini</span>
+                        <span class="px-4 py-2 bg-zinc-100 dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-full text-sm font-medium text-zinc-700 dark:text-zinc-300">Claude</span>
                         <span class="px-4 py-2 bg-zinc-100 dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-full text-sm font-medium text-zinc-700 dark:text-zinc-300">LM Studio</span>
                         <span class="px-4 py-2 bg-zinc-100 dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-full text-sm font-medium text-zinc-700 dark:text-zinc-300">Alphatax</span>
                 </div>
@@ -427,17 +511,17 @@
                     </h2>
                     <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
                         <div>
-                            <h4 class="font-bold text-zinc-900 dark:text-white mb-2">Technology & Gaming</h4>
+                            <h3 class="font-bold text-zinc-900 dark:text-white mb-2">Technology & Gaming</h3>
                             <p class="text-sm text-zinc-600 dark:text-zinc-400">Deep interest in consumer tech, computing hardware 
-                                platforms and advent of AI.</p>
+                                platforms and the advent of AI.</p>
                         </div>
                         <div>
-                            <h4 class="font-bold text-zinc-900 dark:text-white mb-2">Endurance Training</h4>
+                            <h3 class="font-bold text-zinc-900 dark:text-white mb-2">Endurance Training</h3>
                             <p class="text-sm text-zinc-600 dark:text-zinc-400">Runner and cyclist. 
                                 Serving committee member for <a href="https://www.eastlondonrunners.org.uk/" class="text-indigo-600 dark:text-indigo-400 hover:underline">East London Runners</a> running club.</p>
                         </div>
                         <div class="sm:col-span-2">
-                            <h4 class="font-bold text-zinc-900 dark:text-white mb-2">Charity Work</h4>
+                            <h3 class="font-bold text-zinc-900 dark:text-white mb-2">Charity Work</h3>
                             <p class="text-sm text-zinc-600 dark:text-zinc-400">Volunteer mathematics tutor for <a href="https://www.actiontutoring.org.uk/" class="text-indigo-600 dark:text-indigo-400 hover:underline">Action Tutoring</a>. Previously served as business adviser for <a href="https://www.enactus.org.uk/" class="text-indigo-600 dark:text-indigo-400 hover:underline">Enactus UK</a>.</p>
                         </div>
                     </div>
